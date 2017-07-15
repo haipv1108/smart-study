@@ -1,0 +1,17 @@
+= simple_form_for @book do |f|
+  .field
+    = f.input :title, as: :string
+  .field
+    = f.input :description, as: :text
+  .field
+    = f.input :author, as: :string, label: "Author's book"
+  .field
+    = f.input :page_number, as: :integer, label: 'Total pages'
+  .field
+    = f.input :image, as: :file
+  .field
+    = f.input :document, as: :file
+  .field
+    = f.input :private, as: :boolean, label: 'Set private'
+  .actions
+    = f.button :submit, class: 'btn btn-primary btn-block'

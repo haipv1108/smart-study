@@ -10,6 +10,8 @@ class User
   field :email,              type: String, default: ""
   field :encrypted_password, type: String, default: ""
 
+  has_many :books, dependent: :destroy
+
   field :first_name,         type: String
   field :last_name,          type: String
   field :nick_name,          type: String
@@ -20,8 +22,9 @@ class User
   validates :last_name, presence: true, length: { minimum: 3, maximum: 20 }
   validates :nick_name, presence: true, uniqueness: { :case_sensitive => false }, on: :update
 
-  has_mongoid_attached_file :avatar, styles: { medium: '250x250#', large: '500x500' }
-  validates_attachment_content_type :avatar, :content_type => /\Aimage\/.*\Z/
+  has_mongoid_attached_file :avatar, presence: true,
+                               content_type: { :content_type => /\Aimage\/.*\Z/ },
+                               size: { in: 0..500.kilobytes }
 
   ## Recoverable
   field :reset_password_token,   type: String

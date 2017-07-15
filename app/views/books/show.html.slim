@@ -1,0 +1,28 @@
+p
+  strong Title:
+  = @book.title
+p
+  strong Author:
+  = @book.author
+p
+  strong Pages:
+  = @book.page_number
+p
+  strong Description:
+  = @book.description
+p
+  strong Publisher:
+  = @book.user.first_name
+p
+  strong Image:
+  = image_tag @book.image.url(:medium)
+p
+  strong Document:
+  = @book.document.url
+p
+  strong Private:
+  = @book.private
+
+= link_to 'Edit', edit_book_path(@book)
+'  |
+= link_to 'Back', books_path
