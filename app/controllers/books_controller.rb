@@ -1,6 +1,6 @@
 class BooksController < ApplicationController
   before_action :set_book, only: [:show, :edit, :update, :destroy]
-
+  before_action :set_owned, only: [:edit, :update, :destroy]
   def index
     @books = Book.all
   end
@@ -51,6 +51,13 @@ class BooksController < ApplicationController
     end
 
     def book_params
-      params.require(:book).permit(:title, :description, :author, :page_number, :private, :image, :document)
+      params.require(:book).permit(:title, :description, :author, :page_number, :private, :image, :document, :category_id)
+    end
+
+    def set_owned
+      unless @book.user == current_user || current_user.admin?
+        flash[:danger] = "That post doesn't belong to you!"
+        redirect_to root_path
+      end
     end
 end

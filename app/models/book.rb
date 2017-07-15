@@ -9,13 +9,16 @@ class Book
   field :page_number, type: Integer
   field :private, type: Boolean, default: false
 
-  belongs_to :user
+  belongs_to :user, inverse_of: :books
+  belongs_to :category, inverse_of: :books
+  has_many :comments, dependent: :destroy, inverse_of: :book
 
   validates :title, presence: true
   validates :description, presence: true, length: { minimum: 5 }
   validates :author, presence: true
   validates :page_number, presence: true
   validates :user_id, presence: true
+  validates :category_id, presence: true
 
   has_mongoid_attached_file :image, styles: { medium: '200x300#', large: '400x600' }
   validates_attachment :image, presence: true,

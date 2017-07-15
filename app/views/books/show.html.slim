@@ -14,6 +14,9 @@ p
   strong Publisher:
   = @book.user.first_name
 p
+  strong Category:
+  = @book.category.name
+p
   strong Image:
   = image_tag @book.image.url(:medium)
 p
@@ -26,3 +29,13 @@ p
 = link_to 'Edit', edit_book_path(@book)
 '  |
 = link_to 'Back', books_path
+
+h4 Comments 
+- if @book.comments.any?
+  == render @book.comments, book: @book
+
+h4 Add a comment
+.col-md-4
+  = simple_form_for([@book, @book.comments.build]) do |f|
+    = f.input :content, as: :string
+    = f.button :submit, class: 'btn btn-primary'

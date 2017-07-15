@@ -10,12 +10,14 @@ class User
   field :email,              type: String, default: ""
   field :encrypted_password, type: String, default: ""
 
-  has_many :books, dependent: :destroy
+  has_many :books, dependent: :destroy, inverse_of: :user
+  has_many :comments, dependent: :destroy, inverse_of: :user
 
   field :first_name,         type: String
   field :last_name,          type: String
   field :nick_name,          type: String
   field :bio,                type: String
+  field :admin,              type: Boolean, default: false
 
   ##validates
   validates :first_name, presence: true, length: { minimum: 3, maximum: 20 }
