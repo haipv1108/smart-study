@@ -13,6 +13,6 @@
 //= require jquery
 //= require bootstrap-sprockets
 //= require jquery_ujs
-//= require twitter/bootstrap
 //= require turbolinks
-//= require_tree .
+//= require_tree ./frontend/
+//= require_tree ./shared/

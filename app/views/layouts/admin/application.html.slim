@@ -7,34 +7,25 @@ html[lang="en"]
     title
       = content_for?(:title) ? yield(:title) : "SmartStudy"
     = csrf_meta_tags
-    = stylesheet_link_tag "application", :media => "all"
+    = stylesheet_link_tag "admin", :media => "all", 'data-turbolinks-track': 'reload'
+
     = favicon_link_tag 'apple-touch-icon-144x144-precomposed.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png', :sizes => '144x144'
     = favicon_link_tag 'apple-touch-icon-114x114-precomposed.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png', :sizes => '114x114'
     = favicon_link_tag 'apple-touch-icon-72x72-precomposed.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png', :sizes => '72x72'
     = favicon_link_tag 'apple-touch-icon-precomposed.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png'
     = favicon_link_tag 'favicon.ico', :rel => 'shortcut icon'
-    = javascript_include_tag "application"
+
+    = javascript_include_tag "admin", 'data-turbolinks-track': 'reload'
+    link[href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet"]
+    link[href="http://fonts.googleapis.com/css?family=Roboto:400,700,300|Material+Icons" rel="stylesheet" type="text/css"]
   body
-    .navbar.navbar-default.navbar-static-top
-      .container
-        button.navbar-toggle[type="button" data-toggle="collapse" data-target=".navbar-responsive-collapse"]
-          span.icon-bar
-          span.icon-bar
-          span.icon-bar
-        = link_to 'SmartStudy', root_path, class: 'navbar-brand'
-        .navbar-collapse.collapse.navbar-responsive-collapse
-          ul.nav.navbar-nav
-            li
-              = link_to "Link1", "/path1"
-            li
-              = link_to "Link2", "/path2"
-            li
-              = link_to "Link3", "/path3"
-    .container
-      .row
-        .col-lg-12
-          = bootstrap_flash
-          = yield
-      footer
-        p
-          | © Company 2017
+    .wrapper
+      == render "layouts/admin/sidebar"
+      .main-panel
+        == render "layouts/admin/navbar"
+        = bootstrap_flash
+        = yield
+        == render "layouts/admin/footer"
+  script[type="text/javascript"]
+    |  $(document).ready(function(){
+    demo.initDashboardPageCharts(); });
